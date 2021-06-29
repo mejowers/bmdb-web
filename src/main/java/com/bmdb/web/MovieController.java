@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.bmdb.business.Credit;
 import com.bmdb.business.Movie;
 import com.bmdb.db.MovieRepo;
 
@@ -66,4 +67,10 @@ public class MovieController {
 		}
 		return movie;
 }
+	@GetMapping("/{rating}")
+	public Iterable<Movie> getAllByRating(@PathVariable String rating) {
+//		Optional<Movie> movie = movieRepo.findById(id);
+		return movieRepo.findAllByRating(rating);
+	}
+	
 }
