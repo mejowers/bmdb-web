@@ -1,9 +1,18 @@
 package com.bmdb.business;
 
+import javax.persistence.*;
+
+@Entity
 public class Credit {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	//instance variables
 	private int id;
+	@ManyToOne
+	@JoinColumn(name="ActorID")
 	private Actor actor;
+	@ManyToOne
+	@JoinColumn(name="MovieID")
 	private Movie movie;
 	private String role;
 	
@@ -87,9 +96,5 @@ public class Credit {
 		return "Credit [id=" + id + ", actor=" + actor + ", movie=" + movie + ", role=" + role + "]";
 	}
 	
-public String getCreditString() {
-	return "Credit ID: "+id+"\n"+
-			"Movie = " +movie.getTitle()+ ", ("+movie.getYear()+"), Rating: " +movie.getRating() +"\n"+
-			"Actor = "+actor.getFullName()+" Role: "+role;
 }
-}
+

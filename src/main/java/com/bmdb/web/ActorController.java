@@ -1,6 +1,5 @@
 package com.bmdb.web;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,44 +8,45 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.bmdb.business.Actor;
 import com.bmdb.business.Movie;
-import com.bmdb.db.MovieRepo;
+import com.bmdb.db.ActorRepo;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/movies")
+@RequestMapping("/api/actors")
 
-public class MovieController {
+public class ActorController {
 	
 	@Autowired
-	private MovieRepo movieRepo;
+	private ActorRepo actorRepo;
 	
 	@GetMapping("/")
-	public Iterable<Movie> getAll() {
-		return movieRepo.findAll();
+	public Iterable<Actor> getAll(){ 
+		return actorRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Optional<Movie> get(@PathVariable int id) {
-		return movieRepo.findById(id);
+	public Optional<Actor> get(@PathVariable int id) {
+		return actorRepo.findById(id);
 	}
 	
 	@PostMapping("/")
-	public Movie add(@RequestBody Movie movie) {
-		return movieRepo.save(movie);
+	public Actor add(@RequestBody Actor actor) {
+		return actorRepo.save(actor);
 	}
 	
 	@PutMapping("/")
-	public Movie update(@RequestBody Movie movie) {
-		return movieRepo.save(movie);
+	public Actor update(@RequestBody Actor actor) {
+		return actorRepo.save(actor);
 	}
 	
 	@DeleteMapping("/{id}")
-	public Optional<Movie> delete(@PathVariable int id) {
-		Optional<Movie> movie = movieRepo.findById(id);
-		if (movie.isPresent()) {
+	public Optional<Actor> delete(@PathVariable int id) {
+		Optional<Actor> actor = actorRepo.findById(id);
+		if (actor.isPresent()) {
 			try {
-		movieRepo.deleteById(id);
+		actorRepo.deleteById(id);
 			}
 			catch (DataIntegrityViolationException dive) {
 				//catch dive when movie exists as fk on another table
@@ -58,12 +58,13 @@ public class MovieController {
 			catch (Exception e) {
 				e.printStackTrace();
 				throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-						"Exception caught during movie delete.");
+						"Exception caught during actor delete.");
 			}
 	}
 		else {
-			System.err.println("Movie delete error - no movie found for id:"+id);
+			System.err.println("Actor delete error - no actor found for id:"+id);
 		}
-		return movie;
+		return actor;
 }
+
 }
