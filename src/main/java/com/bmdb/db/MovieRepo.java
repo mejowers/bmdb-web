@@ -13,4 +13,5 @@ public interface MovieRepo extends CrudRepository<Movie, Integer> {
 	//get all movies by rating
 	List<Movie> findAllByRating(String rating);
 
+	List<Movie> findAllByYearGreaterThanEqual(int year);
 }

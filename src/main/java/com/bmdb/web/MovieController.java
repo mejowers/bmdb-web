@@ -67,10 +67,15 @@ public class MovieController {
 		}
 		return movie;
 }
-	@GetMapping("/{rating}")
+	//get movies by rating
+	@GetMapping("/rating/{rating}")
 	public Iterable<Movie> getAllByRating(@PathVariable String rating) {
-//		Optional<Movie> movie = movieRepo.findById(id);
 		return movieRepo.findAllByRating(rating);
+	}
+	
+	@GetMapping("/year/{year}")
+	public Iterable<Movie> getAllSinceYear(@PathVariable int year) {
+		return movieRepo.findAllByYearGreaterThanEqual(year);
 	}
 	
 }

@@ -66,5 +66,10 @@ public class ActorController {
 		}
 		return actor;
 }
+	
+//	@GetMapping("/{id}")
+//	public Optional<Actor> get(@PathVariable int id) {
+//		return actorRepo.findById(id);
+//	}
 
 }
